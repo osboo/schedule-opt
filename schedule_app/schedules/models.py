@@ -40,7 +40,11 @@ class TimeTable(models.Model):
 
 
 class Day(models.Model):
-    pass
+    id = 0
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Room(models.Model):
