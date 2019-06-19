@@ -22,7 +22,7 @@ class TypedSubject(models.Model):
     lesson_type = models.ForeignKey(LessonType, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name) + " " + str(self.lesson_type)
 
 
 class Teacher(models.Model):
@@ -35,8 +35,11 @@ class Teacher(models.Model):
 
 
 class TimeTable(models.Model):
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return self.start_time.strftime('%H:%M') + "-" + self.end_time.strftime('%H:%M')
 
 
 class Day(models.Model):
@@ -55,6 +58,9 @@ class Room(models.Model):
 class TeacherSubject(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     subject = models.ForeignKey(TypedSubject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.teacher) + " - " + str(self.subject)
 
 
 class Schedule(models.Model):
